@@ -13,6 +13,7 @@ export const courtType = [
 export type Court = (typeof courtType)[number];
 export const courtTypeEnum = pgEnum('court_type', courtType);
 
+// Defines the 'courts' table with columns for court information.
 export const CourtTable = pgTable('courts', {
   id,
   createdAt,
@@ -23,7 +24,8 @@ export const CourtTable = pgTable('courts', {
   court_type: courtTypeEnum().notNull().default('tennis'),
 });
 
-// A court have one stadium
+// Defines the relationship between the 'courts' table and the 'stadiums' table:
+// - `court_stadium`: Establishes a one-to-one relationship, indicating that a court belongs to one stadium via the `stadiums` table.
 export const CourtsRelationships = relations(CourtTable, ({ one }) => ({
   court_stadium: one(StadiumTable, {
     fields: [CourtTable.id],
