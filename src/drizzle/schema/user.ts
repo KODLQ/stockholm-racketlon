@@ -13,6 +13,7 @@ export const userRoleEnum = pgEnum('user_role', userRoles);
 // Defines the 'users' table with columns for user information.
 export const UserTable = pgTable('users', {
   id,
+  clerkUserId: text().notNull().unique(),
   createdAt,
   updatedAt,
   deletedAt: timestamp({ withTimezone: true }),
